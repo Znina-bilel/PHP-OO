@@ -1,8 +1,8 @@
 <?php
 
-function foo($var){
-$var = 2;
+function foo(DateTime $date){
+    $date->modify('+1 day');
 }
 
-$a=1;
-foo($a);
+$date = new DateTime;
+foo($date);
