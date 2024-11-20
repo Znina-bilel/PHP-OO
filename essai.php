@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 class Pont
 {
-  // $unite ne sert que dans la classe, on met cette propriété en privé.
    private string $unite = 'm²';
   
-   public float $longueur;
-   public float $largeur;
-  
-   public function getSurface(): string
+   private float $longueur;
+   private float $largeur;
+
+public function setLongueur(float $longueur): void
    {
-       return ($this->longueur * $this->largeur) . $this->unite; // on renvoie l’unité en plus de la surface
-   }}
 
+if ($longueur <0){
+    trigger_error(
+        'la longueur est trop courte', E_USER_ERROR
+    );
+}
+$this->longueur = $longueur;
+   }
+}
 $towerBridge = new Pont;
-$towerBridge->longueur = 286.0;
-$towerBridge->largeur = 15.0;
-
-echo $towerBridge->getSurface();
+$towerBridge->setLongueur(286.0);
+$towerBridge->setLongueur(-286.0);
