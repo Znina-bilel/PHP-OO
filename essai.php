@@ -1,14 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
-class Pont 
+class Pont
 {
-public float $longueur;
-public float $largeur;
+   public float $longueur;
+   public float $largeur;
+  
+   public function getSurface(): float
+   {
+       return $this->longueur * $this->largeur;
+   }
 }
-$pont = new Pont;
-$pont->longueur = 286.0;
-$pont->largeur = 15.0;
-$surface = $pont->longueur * $pont->largeur;
-
-var_dump($surface);
