@@ -1,66 +1,56 @@
 <?php
-
-class Encounter
+ 
+declare(strict_types=1);
+ 
+class User
 {
-    public const RESULT_WINNER = 1;
-    public const RESULT_LOSER = -1;
-    public const RESULT_DRAW = 0;
-    public const RESULT_POSSIBILITIES = [self::RESULT_WINNER, self::RESULT_LOSER, self::RESULT_DRAW];
-
-    public static function probabilityAgainst(Player $playerOne, Player $playerTwo): float
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_INACTIVE = 'inactive';
+ 
+    public function __construct(public string $username, public string $status = self::STATUS_ACTIVE)
     {
-        return 1/(1+(10 ** (($playerTwo->getLevel() - $playerOne->getLevel())/400)));
     }
 
-    public static function setNewLevel(Player $playerOne, Player $playerTwo, int $playerOneResult): void
+    public function setStatus(string $status): void
     {
-        if (!in_array($playerOneResult, self::RESULT_POSSIBILITIES)) {
-            trigger_error(sprintf('Invalid result. Expected %s',implode(' or ', self::RESULT_POSSIBILITIES)));
-        }
+        if (!in_array($status, [self::STATUS_ACTIVE, self::STATUS_INACTIVE])) {
+            trigger_error(sprintf('Le status %s n\'est pas valide. Les status possibles sont : %s', $status, implode(', ', [self::STATUS_ACTIVE, self::STATUS_INACTIVE])), E_USER_ERROR);
+        };
 
-        $playerOne->setLevel(
-            $playerOne->getLevel() +
-            round(32 * ($playerOneResult - self::probabilityAgainst($playerOne, $playerTwo)))
-        );
+        $this->status = $status;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
     }
 }
-
-class Player
+ 
+class Admin extends User
 {
-    private int $level;
-
-    public function __construct(int $level)
+    // Ajout d'un tableau de roles pour affiner les droits des administrateurs :)
+    public function __construct(public string $username, public array $roles = [], public string $status = self::STATUS_ACTIVE)
     {
-        $this->level = $level;
+    }
+ 
+    // Méthode d'ajout d'un rôle, puis on supprime les doublons avec array_filter.
+    public function addRole(string $role): void
+    {
+        $this->roles[] = $role;
+        $this->roles = array_filter($this->roles);
+    }
+ 
+    // Méthode de renvoie des rôles, dans lequel on définit le rôle ADMIN par défaut.
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ADMIN';
+ 
+        return $roles;
     }
 
-    public function getLevel(): int
+    public function setRoles(array $roles): void
     {
-        return $this->level;
-    }
-
-    public function setLevel(int $level): void
-    {
-        $this->level = $level;
+        $this->roles = $roles;
     }
 }
-
-$greg = new Player(400);
-$jade = new Player(800);
-
-echo sprintf(
-        'Greg à %.2f%% chance de gagner face a Jade',
-        Encounter::probabilityAgainst($greg, $jade)*100
-    ).PHP_EOL;
-
-// Imaginons que greg l'emporte tout de même.
-Encounter::setNewLevel($greg, $jade, Encounter::RESULT_WINNER);
-Encounter::setNewLevel($jade, $greg, Encounter::RESULT_LOSER);
-
-echo sprintf(
-    'les niveaux des joueurs ont évolués vers %s pour Greg et %s pour Jade',
-    $greg->getLevel(),
-    $jade->getLevel()
-);
-
-exit(0);
