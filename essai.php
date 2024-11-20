@@ -1,8 +1,4 @@
 <?php
  
-$dateUne = new DateTime;
-$dateDeux = $dateUne;
-
-$dateDeux->modify('+1 day');
-
-var_dump($dateUne, $dateDeux);
+$date = new DateTime;
+echo $date->format('d/m/y');
