@@ -1,11 +1,12 @@
 <?php
- 
-$s = '
-{
-    "date":"2021-03-23 07:35:44.011207",
-    "timezone_type":3,
-    "timezone":"Europe/Paris"
-}
-';
+declare(strict_types=1);
 
-var_dump(json_decode($s));
+class Pont 
+{
+public float $longueur = 0;
+}
+
+$pont = new Pont;
+$pont->longueur= 263.0;
+
+var_dump($pont);
