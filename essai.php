@@ -1,8 +1,11 @@
 <?php
  
-$date = new DateTimeImmutable;
-$newDate = $date->modify('+1 day');
+$s = '
+{
+    "date":"2021-03-23 07:35:44.011207",
+    "timezone_type":3,
+    "timezone":"Europe/Paris"
+}
+';
 
-echo $date->format('d/m/Y').PHP_EOL;
-
-echo $date->format('d/m/Y').PHP_EOL;
+var_dump(json_decode($s));
