@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 class Pont 
 {
-public float $longueur = 0;
+public float $longueur;
+public float $largeur;
 }
-
 $pont = new Pont;
-$pont->longueur= 263.0;
+$pont->longueur = 286.0;
+$pont->largeur = 15.0;
+$surface = $pont->longueur * $pont->largeur;
 
-var_dump($pont);
+var_dump($surface);
