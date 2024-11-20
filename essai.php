@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 class Pont
 {
-   private string $unite = 'm²';
+   // Définition de la propriété statique. Elle sera partagée
+   public static int $nombrePietons = 0;
   
-   private float $longueur;
-   private float $largeur;
-
-public function setLongueur(float $longueur): void
+   // Je laisse volontairement la méthode non statique.
+   // Seule la référence à la propriété est importante.
+   public function nouveauPieton()
    {
-
-if ($longueur <0){
-    trigger_error(
-        'la longueur est trop courte', E_USER_ERROR
-    );
-}
-$this->longueur = $longueur;
+       // Mise à jour de la propriété statique.
+       self::$nombrePietons++;
    }
 }
-$towerBridge = new Pont;
-$towerBridge->setLongueur(286.0);
-$towerBridge->setLongueur(-286.0);
+
+$pontLondres = new Pont;
+$pontLondres->nouveauPieton();
+
+$pontManhattan = new Pont;
+$pontManhattan->nouveauPieton();
+
+echo Pont::$nombrePietons;
