@@ -19,20 +19,39 @@ public function getId()
 {
     return $this->id;
 }
-public function setId($id)
+
+
+
+}
+
+class GestionPersonnes {
+    private $listePersonnes = [];
+public function ajouterPersonne(Personne $personne)
 {
-     $this->id = $id;
+    $this->listePersonnes[] = $personne;
+} 
+public function afficherPersonne(){
+    foreach($this->listePersonnes as $personne){
+       {
+       echo "ID:" .$personne->getId() . " - Nom: " . $personne->getNom() . "\n";    
+        }
+    }
 }
-public function setNom($nom)
-{
-     $this->nom = $nom;
 }
+function test(){
+    $gestion = new GestionPersonnes();
+
+    $p1 = new Personne(1, "bilel");
+    $p2 = new Personne(2, "ahmed");
+$gestion->ajouterPersonne($p1);
+$gestion->ajouterPersonne($p2);
+
+echo"Liste des personnes";
+$gestion->afficherPersonne();
 }
 
-$p=new Personne(1,"bilel");
-echo($p->getId()."  ".$p->getNom());
 
-
+test();
 
 
 
