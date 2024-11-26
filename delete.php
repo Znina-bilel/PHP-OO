@@ -4,7 +4,7 @@ $contenu = fread($ptr, filesize("resultat.txt"));
 fclose($ptr);
 
 $contenu = explode(PHP_EOL, $contenu);
-unset($contenu[52]);
+unset($contenu[66]);
 $contenu = array_values($contenu);
 
 $contenu = implode(PHP_EOL, $contenu);
