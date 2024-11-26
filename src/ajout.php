@@ -3,12 +3,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 <?php
-session_start();
 
+    require_once('essai.php');
 
-$nom = $_POST['nom'];
-$prenom = $_POST['prenom'];
-$email = $_POST['email'];
+    test();
 
 echo ' 
 <div class="container">
@@ -24,9 +22,6 @@ echo '
 <tbody>
 <tr>
       
-    <td>'.$_POST["nom"].'</td>
-    <td>'.$_POST["prenom"].'</td>
-    <td>'.$_POST["email"].'</td>
 <td><button type="submit" action="delete.php">Supprimer</button></td>
 </tr>
 
@@ -38,13 +33,13 @@ echo '
 
  
 
-if($fp = fopen("resultat.txt","a")){
-fputs($fp, "\n");
-fputs($fp,
-"$nom' ' $prenom ' '$email");
-fclose($fp);
+// if($fp = fopen("resultat.txt","a")){
+// fputs($fp, "\n");
+// fputs($fp,
+// "$nom' ' $prenom ' '$email");
+// fclose($fp);
 
-}
+// }
 ?>
 </html>
 

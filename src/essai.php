@@ -1,4 +1,5 @@
 <?php
+
 class Personne {
     private $id;
     private $nom;
@@ -26,7 +27,7 @@ class GestionPersonnes {
 
     public function afficherPersonnes() {
         foreach ($this->listePersonnes as $personne) {
-            echo "ID: " . $personne->getId() . " - Nom: " . $personne->getNom() . "\n";
+            echo "ID: " . $personne->getId() . " - Nom: " . $personne->getNom() . "<br>";
         }
     }
 
@@ -43,11 +44,19 @@ class GestionPersonnes {
         foreach ($this->listePersonnes as $key => $personne) {
             if ($personne->getId() == $id) {
                 unset($this->listePersonnes[$key]);
-                echo "Personne avec ID=$id supprimée.\n";
+                echo "Personne avec ID=$id supprimée.<br>";
                 return;
             }
         }
-        echo "Personne avec ID=$id non trouvée.\n";
+        echo "Personne avec ID=$id non trouvée.<br>";
+    }
+
+    public function ecrireDansUnFichier() {
+        // Ici écrire la liste des personnes dans un fichier txt
+    }
+
+    public function recupererListePersonneDuFichier() {
+        // Lire le fichiers et remplir le tableau listePersonnes.
     }
 }
 
@@ -65,20 +74,20 @@ function test() {
     $gestion->ajouterPersonne($p3);
 
     // Affichage des personnes
-    echo "Liste des personnes:\n";
+    echo "Liste des personnes:<br>";
     $gestion->afficherPersonnes();
 
     // Recherche d'une personne
-    echo $gestion->rechercherPersonneParId(2) . "\n";
-    echo $gestion->rechercherPersonneParId(5) . "\n";
+    echo $gestion->rechercherPersonneParId(2) . "<br>";
+    echo $gestion->rechercherPersonneParId(5) . "<br>";
 
     // Suppression d'une personne
     $gestion->supprimerPersonneParId(2);
 
     // Affichage après suppression
-    echo "Liste après suppression:\n";
+    echo "Liste après suppression:<br>";
     $gestion->afficherPersonnes();
 }
 
-test();
+// test();
 ?>
